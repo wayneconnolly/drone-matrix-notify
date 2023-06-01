@@ -4,18 +4,18 @@ The official plugin is broken so I made this. Its based off https://github.com/f
 # PROPERTIES
 
 ## homeserver
-string
-required
-The Matrix homeserver URL.
+- The Matrix homeserver URL.
+- `string` required
+
 
 Default: https://matrix.org
 
 ## accesstoken
-string
-optional
-Matrix access token
+- Matrix access token
+- `string` required
+
 
 ## roomid
-string
-required
-Room ID to send messages (not alias, but ID, and don't skip the !).
+- Room ID to send messages (not alias, but ID, and don't skip the !).
+- `string` required
+
