@@ -13,4 +13,4 @@ if [[ -n $PLUGIN_TEMPLATE ]]; then
     TEMPLATE="$PLUGIN_TEMPLATE"
 fi
 
-bash ./scripts/matrix.sh  --homeserver="${SERVER}" --token="${SERVER}" --room="${SERVER}" "$TEMPLATE"
+bash /bin/matrix.sh  --homeserver="${SERVER}" --token="${TOKEN}" --room="${ROOMID}" "$TEMPLATE"
