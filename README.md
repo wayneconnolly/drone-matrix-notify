@@ -16,6 +16,24 @@ Default: https://matrix.org
 
 
 ## roomid
-- Room ID to send messages (not alias, but ID, and don't skip the !).
+- Room ID to send messages (not alias, but ID, and skip the !).
 - `string` required
 
+## template
+- Stock template message
+- required
+- 
+``` 
+  - name: Notify Element
+    image: dubc/drone-matrix-notify
+    settings:
+      homeserver: https://matrix.domain.com
+      roomid: eEReyMfMyRpGObXr:matrix.domain.com
+      accesstoken:
+        from_secret: matrix_drone_token
+      template: |
+        Build #{{build.number}} {{ build.status }}   
+        Message: {{build.message}}        
+      when:
+        status: [ success, failure ]
+```
