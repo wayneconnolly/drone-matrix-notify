@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #set -x
 
 # Needed for the strip-HTML-from-string-Regexp-like stuff.

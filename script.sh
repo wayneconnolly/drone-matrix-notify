@@ -1,16 +1,28 @@
-#/bin/bash
+#!/bin/bash
+COMMIT_MSG=$(echo $DRONE_COMMIT_MESSAGE | sed -e 's|\\n"||g' | tr -d '"')
+# ALL=$(printenv)
 
-if [[ -n $PLUGIN_SERVER ]]; then
-    SERVER="$PLUGIN_SERVER"
-fi
-if [[ -n $PLUGIN_ROOMID ]]; then
-    ROOMID="!$PLUGIN_ROOMID"
-fi
-if [[ -n $PLUGIN_TOKEN ]]; then
-    TOKEN="$PLUGIN_TOKEN"
-fi
-if [[ -n $PLUGIN_TEMPLATE ]]; then
-    TEMPLATE="$PLUGIN_TEMPLATE"
+SUCCESS=$(cat <<-END
+    🚀 Build $DRONE_REPO #$DRONE_BUILD_NUMBER success.
+    📝 $COMMIT_MSG
+END
+
+)
+
+FAIL=$(cat <<-END
+    🚫 Build $DRONE_REPO #$DRONE_BUILD_NUMBER fail.
+    📝 $COMMIT_MSG
+    $DRONE_BUILD_LINK
+END
+
+) 
+
+if [ "$DRONE_BUILD_STATUS" == "success" ];then
+    MSG=$SUCCESS
+else
+    MSG=$FAIL
 fi
 
-bash /bin/matrix.sh  --homeserver="${SERVER}" --token="${TOKEN}" --room="${ROOMID}" "$TEMPLATE"
+ROOMID="!"
+ROOMID+="${PLUGIN_ROOMID}"
+bash /bin/matrix.sh  --homeserver="${PLUGIN_HOMESERVER}" --token="${PLUGIN_ACCESSTOKEN}" --room="${ROOMID}" "$MSG"
